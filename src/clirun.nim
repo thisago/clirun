@@ -30,7 +30,7 @@ when not fileExists exe: {.fatal: "File not exists".}
 when isMainModule:
   static: echo "Encoding the binary " & exe
   const exeData = encode readFile exe
-  static: echo "Successfully encoded"
+  static: echo "Successfully encoded " & $exeData.len & " bytes" # TODO THIS and copu theses files and add a option to disable encoding
 
   let param = commandLineParams().join " "
 

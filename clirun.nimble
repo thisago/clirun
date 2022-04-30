@@ -31,5 +31,5 @@ task buildRelease, "Builds the release version":
   exec "strip build/clirun"
 
 task buildWinRelease, "Builds the windows release version":
-  exec fmt"nim c -d:mingw {defs} -d:danger --outDir:{binDir} src/clirun"
+  exec fmt"nim c -d:mingw {defs} -d:danger --outDir:{binDir} src/clirun.nim"
   exec "strip build/clirun.exe"
