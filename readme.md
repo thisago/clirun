@@ -22,3 +22,7 @@ And run with
 ```bash
 ./build/clirun secret
 ```
+
+## TODO
+
+- [ ] External file config
