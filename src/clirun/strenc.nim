@@ -1,3 +1,4 @@
+# Source https://github.com/Yardanico/nim-strenc/blob/master/src/strenc.nim 
 import hashes
 
 type
