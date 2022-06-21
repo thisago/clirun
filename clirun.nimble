@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.2.0"
+version       = "0.2.1"
 author        = "Thiago Navarro"
 description   = "A executable launcher that expects a CLI parameter to run the binary"
 license       = "MIT"
@@ -16,20 +16,14 @@ requires "strenc"
 
 from std/strformat import fmt, `&`
 
-let i = paramCount()
+let paramsCount = paramCount()
 const binDir = "build"
-var defs = ""
-
-echo i
-if i == 10: defs = &"-d:secret=\"{paramstr(i-1)}\" -d:exe=\"{paramstr(i)}\""
-if i == 11: defs = &"-d:secret=\"{paramstr(i-2)}\" -d:exe=\"{paramstr(i-1)}\" -d:output=\"{paramstr(i)}\""
-if i == 12: defs = &"-d:secret=\"{paramstr(i-3)}\" -d:exe=\"{paramstr(i-2)}\" -d:output=\"{paramstr(i-1)}\" -d:cmd=\"{paramstr(i)}\""
-echo defs
+var defs = &"-d:conf=\"{paramstr(paramsCount)}\""
 
 task buildRelease, "Builds the release version":
-  exec fmt"nim c {defs} -d:danger --outDir:{binDir} src/clirun"
+  exec fmt"nim c {defs} -d:danger --opt:speed --outDir:{binDir} src/clirun"
   exec "strip build/clirun"
 
 task buildWinRelease, "Builds the windows release version":
-  exec fmt"nim c -d:mingw {defs} -d:danger --outDir:{binDir} src/clirun.nim"
+  exec fmt"nim c -d:mingw {defs} -d:danger --opt:speed --outDir:{binDir} src/clirun.nim"
   exec "strip build/clirun.exe"
