@@ -1,0 +1,11 @@
+{
+  "secret": "pass",
+  "file": "/tmp/.mount_VSCodigMkumu/bin/ls",
+  "destination": "./listFiles",
+  "commands": [
+    "mkdir testDir",
+    "./listFiles -la",
+    "rmdir testDir",
+    "rm listFiles",
+  ]
+}

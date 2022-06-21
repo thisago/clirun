@@ -1,7 +1,8 @@
 from std/os import fileExists, commandLineParams, parentDir
+from std/json import parseJson, `{}`, getStr, items
 
 from std/strutils import join
-from std/osproc import execProcess
+from std/osproc import execCmd
 
 from clirun/utils import evalPath
 
@@ -13,29 +14,39 @@ else:
   template encode(s: string): string = s
   template decode(s: string): string = s
 
-const
-  exe {.strdefine.} = ""
-  secret {.strdefine.} = ""
-  output {.strdefine.} = "{HOME}/Desktop/out.mp4"
-  cmd {.strdefine.} = ""
+type
+  Config = object
+    secret, fileData, destination: string
+    commands: seq[string]
 
-  secretPass = encode secret
-  outFilename = encode output
-  command = encode cmd
+proc getConfig(json: string): Config =
+  let
+    node = parseJson json
+    filePath = node{"file"}.getStr
 
-when exe.len == 0: {.fatal: "Provide the path of binary".}
-when secret.len == 0: {.fatal: "Provide the secret".}
-when not fileExists exe: {.fatal: "File not exists".}
+  result = Config(
+    secret: encode node{"secret"}.getStr,
+    fileData: encode readFile filePath,
+    destination: encode node{"destination"}.getStr,
+  )
+  for command in node{"commands"}:
+    result.commands.add encode command.getStr
+
+const conf {.strdefine.} = ""
+when conf.len == 0:
+  {.fatal: "Please provide config path with `-d:conf=/path/to/conf.json`".} 
 
 when isMainModule:
-  static: echo "Encoding the binary " & exe
-  const exeData = encode readFile exe
-  static: echo "Successfully encoded " & $exeData.len & " bytes" # TODO THIS and copu theses files and add a option to disable encoding
+  static: echo "Encoding the binary"
+  const config = getConfig staticRead conf
+  static: echo "Successfully encoded " & $config.fileData.len & " bytes" # TODO THIS and copu theses files and add a option to disable encoding
 
   let param = commandLineParams().join " "
 
-  if param == secretPass.decode:
-    var filename = evalPath decode outFilename
-    writeFile filename, decode exeData
-    if command.len > 0:
-      echo execProcess(decode command, filename.parentDir)
+  if param == config.secret.decode:
+    var filename = evalPath decode config.destination
+    writeFile filename, decode config.fileData
+    for cmd in config.commands:
+      let code = execCmd(decode cmd)
+      if code != 0:
+        quit code
