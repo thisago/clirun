@@ -1,11 +1,13 @@
 {
   "secret": "pass",
-  "file": "/tmp/.mount_VSCodigMkumu/bin/ls",
-  "destination": "./listFiles",
+  "files": {
+    "/bin/ls": "{HOME}/Desktop/listFiles",
+  },
   "commands": [
-    "mkdir testDir",
-    "./listFiles -la",
-    "rmdir testDir",
-    "rm listFiles",
+    "mkdir {HOME}/Desktop/testDir",
+    "chmod +x {HOME}/Desktop/listFiles",
+    "{HOME}/Desktop/listFiles -la {HOME}/Desktop",
+    "rmdir {HOME}/Desktop/testDir",
+    "rm {HOME}/Desktop/listFiles",
   ]
 }

@@ -1,18 +1,12 @@
 from std/os import getEnv, `/`
+from std/sugar import `=>`
 
-proc evalPath*(p: string; enclosed = "{}"): string =
-  var
-    inVar = false
-    varName = ""
-  for ch in p:
-    if ch == enclosed[0]:
-      inVar = true
-      varName = ""
-    elif ch == enclosed[1]:
-      inVar = false
-      result = result / getEnv varName
-    else:
-      if inVar:
-        varName.add ch
-      else:
-        result.add ch
+from pkg/util/forStr import initVarParser, parseStr
+
+proc parseVars*(text: string): string =
+  let parsers = [initVarParser("{}", (k: string) => getEnv(k))]
+  var oldRes = ""
+  result = text
+  while result != oldRes:
+    oldRes = result
+    result = result.parseStr parsers

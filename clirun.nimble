@@ -1,8 +1,8 @@
 # Package
 
-version       = "0.2.1"
+version       = "0.3.0"
 author        = "Thiago Navarro"
-description   = "A executable launcher that expects a CLI parameter to run the binary"
+description   = "A executable launcher that encrypts a binary and expects a secret param to run the binary"
 license       = "MIT"
 srcDir        = "src"
 bin           = @["clirun"]
@@ -13,6 +13,7 @@ binDir = "build"
 
 requires "nim >= 1.6.4"
 requires "strenc"
+requires "util"
 
 from std/strformat import fmt, `&`
 
