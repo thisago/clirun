@@ -1,13 +1,13 @@
 {
   "secret": "pass",
-  "files": {
-    "/bin/ls": "{HOME}/Desktop/listFiles",
-  },
+  // "files": {
+  //   "/bin/ls": "{HOME}/Desktop/listFiles",
+  // },
   "commands": [
-    "mkdir {HOME}/Desktop/testDir",
-    "chmod +x {HOME}/Desktop/listFiles",
-    "{HOME}/Desktop/listFiles -la {HOME}/Desktop",
-    "rmdir {HOME}/Desktop/testDir",
-    "rm {HOME}/Desktop/listFiles",
+    "echo \"test\"",
+    "import util/forStr",
+    "echo \"Hello my friend\".between(\"llo\", \"fri\")",
+    "",
+    "",
   ]
 }

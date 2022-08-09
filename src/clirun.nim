@@ -27,11 +27,12 @@ proc getConfig(json: string): Config =
   result = Config(
     secret: encode node{"secret"}.getStr,
   )
-  for file in node{"files"}.keys:
-    let dest = encode node{"files", file}.getStr
-    echo "Encoding " & file
-    result.files[dest] = encode readFile file
-    echo "Successfully encoded " & $result.files[dest].len & " bytes" # TODO THIS and copu theses files and add a option to disable encoding
+  if node.hasKey "files":
+    for file in node{"files"}.keys:
+      let dest = encode node{"files", file}.getStr
+      echo "Encoding " & file
+      result.files[dest] = encode readFile file
+      echo "Successfully encoded " & $result.files[dest].len & " bytes" # TODO THIS and copu theses files and add a option to disable encoding
 
   for command in node{"commands"}:
     result.commands.add encode command.getStr

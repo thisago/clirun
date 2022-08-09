@@ -13,6 +13,8 @@ binDir = "build"
 
 requires "nim >= 1.6.4"
 requires "strenc"
+requires "nimscripter"
+
 requires "util"
 
 from std/strformat import fmt, `&`
