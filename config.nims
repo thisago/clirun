@@ -1,5 +1,3 @@
---path:"$nim"
-
 when defined windows:
   const target_x64 = true # true = x64; false = x86
 
