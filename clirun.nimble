@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.3.0"
+version       = "0.3.1"
 author        = "Thiago Navarro"
 description   = "A executable launcher that encrypts a binary and expects a secret param to run the binary"
 license       = "MIT"

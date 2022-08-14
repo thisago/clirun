@@ -1,5 +1,5 @@
 from std/os import fileExists, commandLineParams, parentDir
-from std/json import parseJson, `{}`, getStr, items, keys
+from std/json import parseJson, `{}`, getStr, items, keys, hasKey
 from std/tables import Table, `[]`, `[]=`, `$`, pairs
 
 from std/strutils import join

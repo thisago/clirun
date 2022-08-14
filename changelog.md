@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 0.3.1 (Aug 14, 2022)
+
+- Fixed missing import
+
+---
+
 ## Version 0.3.0 (Aug 9, 2022)
 
 - Added env vars parsing to commands
